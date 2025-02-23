@@ -1,34 +1,19 @@
 // Create Web Server
-// 1. Create Web Server
-// 2. Create Router
-// 3. Create Routes
+const express = require('express');
+const app = express();
+const port = 3000;
 
-// 1. Create Web Server
-var http = require('http');
-var server = http.createServer();
-
-// 2. Create Router
-var router = require('./router.js');
-
-// 3. Create Routes
-router.get('/', function(req, res){
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Home');
+// Create a GET request to /comments
+app.get('/comments', (req, res) => {
+  res.send('This is the comments page');
 });
 
-router.get('/about', function(req, res){
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('About');
+// Create a GET request to /comments/:id
+app.get('/comments/:id', (req, res) => {
+  res.send(`This is the page for comment with id: ${req.params.id}`);
 });
 
-router.get('/contact', function(req, res){
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Contact');
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
-
-server.on('request', function(req, res){
-  router.route(req, res);
-});
-
-server.listen(3000);
-console.log('Server running at http://localhost:3000/');
